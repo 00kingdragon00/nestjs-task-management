@@ -11,6 +11,7 @@ import {
 } from '@nestjs/common';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { TaskStatusValidationPipe } from './pipes/task-status-validation.pipe';
+import { Task } from './schema/task.schema';
 import { TaskService } from './task.service';
 
 @Controller('task')
@@ -22,10 +23,16 @@ export class TaskController {
   //   return this.taskService.getAllTasks();
   // }
 
-  // @Get('/:id')
-  // getTaskById(@Param('id') id: string) {
-  //   return this.taskService.getTaskById(id);
-  // }
+  @Get('/:id')
+  async getTaskById(@Param('id') id: string): Promise<Task> {
+    return this.taskService.getTaskById(id);
+  }
+
+  @Post()
+  @UsePipes(ValidationPipe)
+  async createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.taskService.createTask(createTaskDto);
+  }
 
   // @Post()
   // @UsePipes(ValidationPipe)
