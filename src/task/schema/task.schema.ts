@@ -12,7 +12,7 @@ export class Task {
   @Prop()
   description: string;
 
-  @Prop()
+  @Prop({ default: TaskStatus.OPEN })
   status: TaskStatus;
 }
 
